@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var _socketurl string = "wss://ws.pusherapp.com/app/de504dc5763aeef9ff52?protocol=7&client=js&version=2.1.6&flash=false"
+var _socketurl string = "wss://ws.bitstamp.net"
 
 type WebSocket struct {
 	ws     *websocket.Conn
@@ -30,7 +30,7 @@ func (s *WebSocket) Close() {
 
 func (s *WebSocket) Subscribe(channel string) {
 	a := &Event{
-		Event: "pusher:subscribe",
+		Event: "bts:subscribe",
 		Data: map[string]interface{}{
 			"channel": channel,
 		},
@@ -44,14 +44,14 @@ func (s *WebSocket) SendTextMessage(message []byte) {
 
 func (s *WebSocket) Ping() {
 	a := &Event{
-		Event: "pusher:ping",
+		Event: "bts:ping",
 	}
 	s.ws.WriteJSON(a)
 }
 
 func (s *WebSocket) Pong() {
 	a := &Event{
-		Event: "pusher:pong",
+		Event: "bts:pong",
 	}
 	s.ws.WriteJSON(a)
 }
